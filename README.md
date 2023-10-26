@@ -1,6 +1,6 @@
 # ESSAI - Artificial Intelligence (Muhammad Adityo Wiryawan 5311421077)
 
-                                      SVM ALGORITHM: SIMPLE FACE RECOGNITION FOR UNLOCK FILE 
+                              SVM ALGORITHM: SIMPLE FACE RECOGNITION FOR UNLOCK FILE 
 
 
 Artificial Intelligence atau kecerdasan buatan merupakan ilmu yang mempelajari bagaimana komputer memiliki kecerdasan, baik itu dapat berpikir atau berperilaku menyerupai manusia secara rasional. Jadi kata kuncinya itu ada 3, “berpikir”, “berperilaku”, dan “secara rasional”. 
