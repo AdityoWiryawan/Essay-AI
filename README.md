@@ -1,4 +1,4 @@
-# ESSAI - Artificial Intelligence (Muhammad Adityo Wiryawan 5311421077)
+# ESSAy - Artificial Intelligence (Muhammad Adityo Wiryawan 5311421077)
 
                               SVM ALGORITHM: SIMPLE FACE RECOGNITION FOR UNLOCK FILE 
 
