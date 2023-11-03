@@ -10,5 +10,18 @@ Fungsi: Program ini mengimplementasikan representasi graf menggunakan daftar kej
 Masing-masing program memiliki peran dan fungsi yang berbeda dalam konteks yang berbeda. EightPuzzleSpace digunakan untuk mengelola konfigurasi permainan Eight Puzzle. EightPuzzleSearch digunakan untuk mencari solusi dalam permainan Eight Puzzle. AdjacencyList digunakan untuk mengelola graf dan menjalankan algoritma BFS pada graf. Semua program ini berkontribusi pada pemahaman dan pemecahan masalah yang berbeda.
 
 
-Hasil 1 :
+Hasil 1:
+
+
+
+
 ![alt text](https://github.com/AdityoWiryawan/Tugas-Artificial-Intelligence/blob/2b4c897bf1a6167b68815b084635712b7c5b9398/Tugas%202%20(Modul%204%20%26%205)/Modul%205/Screenshot%202023-11-03%20at%2009.13.31.png?raw=true)
+
+
+
+
+Hasil 2: 
+
+
+
+![alt text](https://github.com/AdityoWiryawan/Tugas-Artificial-Intelligence/blob/main/Tugas%202%20(Modul%204%20%26%205)/Modul%205/Screenshot%202023-11-03%20at%2009.13.31.png?raw=true)
