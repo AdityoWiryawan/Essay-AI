@@ -1,12 +1,5 @@
 import java.util.*;
-/*
- * Graph represented by an adjacency list.
- *
- * Reference: Introduction to Algorithms - CLRS.
- *
- * @author
- * @since: 26/02/2011
- */
+
 
 public class AdjacencyList
 {
