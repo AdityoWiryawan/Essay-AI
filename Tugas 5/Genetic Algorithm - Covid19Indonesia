@@ -1,0 +1,107 @@
+import pandas as pd
+import numpy as np
+import random
+
+
+# Fungsi untuk membaca data dari file CSV dan memuatnya sebagai array
+def load_data(file_path):
+    data = pd.read_csv(file_path)
+    data = data.loc[0:59, 'Kasus harian']
+    data = data.astype(float)
+    data = np.array(data)
+    return data
+
+# Fungsi untuk membuat populasi awal dengan gen-gen acak antara 0.1 dan 0.9
+def create_initial_population(pop_size, gene_per_pop):
+    population = np.random.uniform(low=0.1, high=0.9, size=(pop_size, gene_per_pop))
+    return population
+
+# Fungsi untuk menghitung prediksi berdasarkan gen individu
+def predict_cases(population, data):
+    predictions = []
+    for individual in population:
+        pred = individual[0] * data[-1] + individual[1] * data[-2] + individual[2]
+        predictions.append(pred)
+    return predictions
+
+# Fungsi untuk menghitung fitness berdasarkan error prediksi terhadap data aktual
+def calculate_fitness(predictions, actual_data):
+    fitness = []
+    for pred in predictions:
+        error = abs((pred - actual_data[-1]) / pred) if pred > 0 else abs(0)  # Menggunakan MAPE
+        fitness.append(1 / (error + 0.01))
+    return fitness
+
+# Fungsi untuk seleksi menggunakan Roulette Wheel Selection
+def roulette_wheel_selection(population, fitness):
+    total_fitness = sum(fitness)
+    probabilities = [fit / total_fitness for fit in fitness]
+    selected_indices = np.random.choice(len(population), size=len(population), p=probabilities)
+    selected_individuals = [population[i] for i in selected_indices]
+    return np.array(selected_individuals)
+
+
+# Fungsi crossover dengan single-point crossover
+def crossover(parents, pc):
+    children = []
+    for i in range(0, len(parents), 2):
+        if random.random() < pc:
+            crossover_point = random.randint(1, len(parents[i]) - 1)
+            child1 = np.concatenate((parents[i][:crossover_point], parents[i + 1][crossover_point:]))
+            child2 = np.concatenate((parents[i + 1][:crossover_point], parents[i][crossover_point:]))
+            children.extend([child1, child2])
+        else:
+            children.extend([parents[i], parents[i + 1]])
+    return np.array(children)
+
+# Fungsi untuk mutasi dengan nilai gen acak antara 0.1 dan 0.9
+def mutation(children, mutation_rate):
+    for child in children:
+        if random.random() < mutation_rate:
+            mutation_point = random.randint(0, len(child) - 1)
+            child[mutation_point] = random.uniform(0.1, 0.9)
+    return children
+
+# Main program
+file_path = 'dataset/dataCovidIndonesia.csv'
+data = load_data(file_path)
+
+pop_size = 50
+gene_per_pop = 3
+pc = 0.7
+mutation_rate = 0.1
+max_generations = 10  # Ubah ke 10 untuk jumlah maksimum iterasi
+
+population = create_initial_population(pop_size, gene_per_pop)
+
+for generation in range(max_generations):  # Jumlah iterasi terbatas
+    predictions = predict_cases(population, data)
+    fitness = calculate_fitness(predictions, data)
+
+    selected_population = roulette_wheel_selection(population, fitness)
+    offspring = crossover(selected_population, pc)
+    offspring_mutated = mutation(offspring, mutation_rate)
+    print(fitness)
+
+    population = np.concatenate((population, offspring_mutated))
+
+    # Evaluasi prediksi hari ke-60 dan ke-61 menggunakan individu terbaik
+    best_individual = population[np.argmax(fitness)]
+    hari60 = round((best_individual[0] * data[-1]) + (best_individual[1] * data[-2]) + best_individual[2])
+    hari61 = round((best_individual[0] * hari60) + (best_individual[1] * data[-1]) + best_individual[2])
+
+    print(f"Iterasi {generation + 1}: Prediksi jumlah kasus pada hari ke-60:", hari60)
+    print(f"Iterasi {generation + 1}: Prediksi jumlah kasus pada hari ke-61:", hari61)
+
+
+
+
+
+
+# Menghitung prediksi untuk hari ke-60 dan ke-61 menggunakan individu terbaik
+best_individual = population[np.argmax(fitness)]
+hari60 = round((best_individual[0] * data[-1]) + (best_individual[1] * data[-2]) + best_individual[2])
+hari61 = round((best_individual[0] * hari60) + (best_individual[1] * data[-1]) + best_individual[2])
+
+print("Prediksi jumlah kasus pada hari ke-60:", hari60)
+print("Prediksi jumlah kasus pada hari ke-61:", hari61)
